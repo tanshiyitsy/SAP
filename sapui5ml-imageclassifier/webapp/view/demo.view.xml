@@ -1,0 +1,93 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table" xmlns:unified="sap.ui.unified" xmlns="sap.m"
+  xmlns:micro="sap.suite.ui.microchart" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  xmlns:l="sap.ui.layout"
+  controllerName="sapui5ml.controller.demo" displayBlock="true">
+  <App>
+    <pages>
+      <Page title="Image Classification">
+        <content>
+          <Carousel pages="{demo>/predictions}" width="100%" visible="{= ${demo>/visible} === true}">
+            <pages>
+              <ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
+                <VBox alignContent="Center" alignItems="Center">
+                  <Image tooltip="canvas" class="sapUiLargeMargin" src="{demo>contentUrl}"/>
+                  <Label text="File name: {demo>name}" class="sapUiLargeMargin"/>
+                  <table:Table rows="{demo>results}" enableBusyIndicator="true" selectionMode="Single" visibleRowCount="5">
+                    <table:columns>
+                      <table:Column sortProperty="label" filterProperty="label">
+                        <Label text="Label"/>
+                        <table:template>
+                          <Link text="{demo>label}" href="https://www.google.com/search?q={demo>label}&amp;newwindow=1&amp;tbm=isch" target="search"/>
+                        </table:template>
+                      </table:Column>
+                      <table:Column sortProperty="score" filterProperty="score">
+                        <Label text="Score"/>
+                        <table:template>
+                          <micro:RadialMicroChart size="XS" fraction="{demo>score}" total="1" class="sapUiSmallMargin"/>
+                        </table:template>
+                      </table:Column>
+                    </table:columns>
+                  </table:Table>
+                </VBox>
+              </ScrollContainer>
+            </pages>
+          </Carousel>
+        </content>
+        
+
+        <l:VerticalLayout width="100%">
+      	<l:content>
+      		<FlexBox
+					direction="Column"
+					alignItems="Start" class="notebox">
+					<items>
+						<HBox class="noteall">
+							<Text class="note" text="attention:" />
+						</HBox>
+						<HBox class="noteall">
+							<Text class="note" text="1.The picture type can be 'zip,png,jpeg,jpe,jpg,bmp,tiff,tif',you also can choose one picture from our picture library!" />
+						</HBox>
+						<HBox class="noteall">
+							<Text class="note" text="2.You can have a try with ajax or xhr" />
+						</HBox>
+						<HBox class="noteall">
+							<Text class="note" text="3.Wait a minute,and the result will appear! If you have any questions you can use the search button to work it out" />
+						</HBox>
+						<HBox class="noteall">
+							<Text class="note" text="4.You can caotact us by xxxxxxxxx...." />
+						</HBox>
+					</items>
+			</FlexBox>
+      		<FlexBox
+					direction="Column"
+					alignItems="Start" class="buttonBox">
+					<items>
+						<Button class="item" text="Search" icon="sap-icon://search"  press="handleSearch" />
+						<Button class="item" text="Picture Lib" icon="sap-icon://picture" press="handlePicture" />
+						<Button class="item" text="SAP Home" icon="sap-icon://picture" press="handleSAP" />
+					</items>
+			</FlexBox>
+      	</l:content>
+      </l:VerticalLayout>
+        <footer>
+          <Toolbar width="100%">
+            <content>
+              <unified:FileUploader buttonOnly="true" buttonText="Upload Picture" sameFilenameAllowed="true" multiple="false" fileType="{demo>/fileType}"
+                mimeType="{demo>/mimeType}" typeMissmatch="fileTypeMissmatch" change="fileUploaderChange" uploadComplete="fileUploaderComplete" name="files"
+                uploadUrl="{demo>/url}" useMultipart="true" sendXHR="true" uploadOnChange="true">
+                <unified:headerParameters>
+                  <unified:FileUploaderParameter name="APIKey" value="{demo>/APIKey}"/>
+                  <unified:FileUploaderParameter name="Accept" value="{demo>/accept}"/>
+                </unified:headerParameters>
+              </unified:FileUploader>
+              <unified:FileUploader buttonOnly="true" buttonText="Upload Picture with Ajax" sameFilenameAllowed="true" multiple="false"
+                fileType="{demo>/fileType}" mimeType="{demo>/mimeType}" typeMissmatch="fileTypeMissmatch" change="onPressImageClassifier" custom:mode="ajax"/>
+              <unified:FileUploader buttonOnly="true" buttonText="Upload Picture with XHR " sameFilenameAllowed="true" multiple="false"
+                fileType="{demo>/fileType}" mimeType="{demo>/mimeType}" typeMissmatch="fileTypeMissmatch" change="onPressImageClassifier" custom:mode="xhr"/>
+            </content>
+          </Toolbar>
+        </footer>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

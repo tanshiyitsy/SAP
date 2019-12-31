@@ -1,0 +1,37 @@
+/* Enter your custom styles here */
+.mainContent {
+	background-color : #F0FFF0;
+	width : 100%;
+	height : auto;
+	margin : 10px;
+}
+.size {
+	font-size : 1.5rem;
+}
+Link:hover{
+	background-color : #00FF00;
+}
+.notebox{
+	margin:10px 5px;
+	display:block;
+}
+.noteall{
+	/*background-color : #8FBC8F;*/
+	background-color:#778899;
+}
+.note {
+	width : auto;
+	height:15px;
+	color:white;
+	margin:10px;
+	margin-left:0;
+	font-size:1rem;
+}
+.buttonBox{
+	display:block;
+	width:auto;
+	height:200px;
+}
+.item{
+	width:100%;
+}
